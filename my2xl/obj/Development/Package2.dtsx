@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/6/2016 5:21:57 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DROI-ETL"
+  DTS:CreatorName="DROI-ETL\Administrator"
+  DTS:DTSID="{58BF4E8B-9C2B-41B6-89BE-BC63332BB220}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.800.111"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package2"
+  DTS:PackageType="5"
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{C5389432-D14D-4F97-8E52-353530DCA0CA}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[PostgreSQL35W86 1]"
+      DTS:CreationName="ADO.NET:System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{68568937-E353-4B4A-8AB0-44BFE1096EF5}"
+      DTS:ObjectName="PostgreSQL35W86 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Dsn=PostgreSQL35W86;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F38C0F59-5A3D-47AE-B5ED-E5AF1A58DB53}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;update test_ts values  set create_time =  &quot; + @[User::ttss_mod] + &quot;;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ts_cmd">
+      <DTS:VariableValue
+        DTS:DataType="8">update test_ts values  set create_time =  '2000-1-1 17:30:00'::timestamp without time zone;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{01C73B3A-7F1A-4B4D-AE03-977EFD9D8974}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ttss">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2000 5:30:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C7946E17-A90A-4327-B13C-EF754041E4F8}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;'&quot; + (DT_WSTR, 4) YEAR( @[User::ttss] ) + &quot;-&quot; + (DT_WSTR, 2) MONTH( @[User::ttss] ) + &quot;-&quot; + (DT_WSTR, 2) DAY( @[User::ttss] ) + &quot; &quot; + (DT_WSTR, 2)DATEPART( &quot;HOUR&quot;, @[User::ttss] ) + &quot;:&quot; +  (DT_WSTR, 2)DATEPART( &quot;MINUTE&quot;, @[User::ttss] ) +&quot;:&quot; +  (DT_WSTR, 2)(DATEPART( &quot;SECOND&quot;, @[User::ttss] ) &lt; 10 ? &quot;0&quot; + (DT_WSTR, 1)DATEPART( &quot;SECOND&quot;, @[User::ttss] ) : (DT_WSTR, 2)DATEPART( &quot;SECOND&quot;, @[User::ttss] )) + &quot;'::timestamp without time zone&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ttss_mod">
+      <DTS:VariableValue
+        DTS:DataType="8">'2000-1-1 17:30:00'::timestamp without time zone</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{0633A36C-C8D5-442C-80FE-D5BA68F62C3F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016 CTP3.1; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{978485CA-F4B4-4B90-8FF8-D3D16D192411}"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::ts_cmd" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Execute SQL Task"
+          TopLeft="309,144" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
